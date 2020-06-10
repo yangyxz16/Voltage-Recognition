@@ -16,5 +16,10 @@ num_of_stations = len(df.index - 1)
 # 生产厂家
 operators = df.operator.unique()
 
+# Stations
+# 站点
+stations = df.station_name.unique()
+
 print(num_of_stations)
 print(operators)
+print(stations)
