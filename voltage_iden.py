@@ -12,6 +12,7 @@ import base64
 from xlwt import Workbook
 import time
 
+
 host = ''
 request_url = ""
 input_folder = "image/labeled/"
@@ -77,7 +78,7 @@ for dir in dirs:
     print("--------------------" + dir + "--------------------")
     
     # All the images in the current "labeled" directory
-    for img_file in glob.glob(input_folder + "/" + dir + "/" + "*.jpg"):
+    for img_file in glob.glob(input_folder + dir + "/" + "*.jpg"):
         with open(img_file, "rb") as imageFile:
             print(img_file + " is being processed")
             
@@ -133,4 +134,4 @@ for dir in dirs:
     row+=1
     
 wb.save('result.xls')
-print("Successfully Save!")
+print("Successfully Saved!")
