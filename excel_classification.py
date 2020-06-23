@@ -39,6 +39,9 @@ img_pp_location = "image/processed/"
 oper_location = "image/oper/"
 uncertain_location = "image/uncertain/"
 
+# Load data frame and fill the empty cell with text
+df = pd.read_excel(excel_location).fillna("Empty Cell")
+
 
 
 ''' 
@@ -66,11 +69,9 @@ headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 
 
-
-
-
-
-
+''' 
+-----Functions-----
+'''
 # Function to download image from the given url
 def url_to_jpg(asset_code, url):
     filename = str(asset_code) + '.jpg'
@@ -78,7 +79,8 @@ def url_to_jpg(asset_code, url):
     urllib.request.urlretrieve(url, full_path)
     print("Save " + full_path)
     return full_path
-    
+
+'''Function to proprocess images'''
 def preprocess_img(path, asset_num):
     # Read image
     # 读取图片
@@ -116,6 +118,7 @@ def preprocess_img(path, asset_num):
     
     return save_path
 
+'''Function to convert image to sting'''
 def img_to_str(save_path):
     with open(save_path, "rb") as imageFile:
         # Convert image to base64
@@ -153,22 +156,15 @@ def copy_file(asset_code, destination_location):
     paste_path = destination_location + file_name
     shutil.copyfile(copy_path, paste_path) 
 
-# Load data frame and fill the empty cell with text
-df = pd.read_excel(excel_location).fillna("Empty Cell")
-
-
-
-
 
 
 '''
------Read through each row-----
+-----Read through each row of excel-----
 '''
 for i, row in df.iterrows():
     row_index = i+1
     asset_code = str(row['asset_code'])
     image_url = row['image1_data']
-    
     
     # Write the asset code for each row
     worksheet.write(row_index, 0, asset_code)
